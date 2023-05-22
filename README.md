@@ -34,6 +34,10 @@ This project is licensed under the [Apache 2.0] License - see the LICENSE file f
 ## Authors
 This project was created by:
 1. [Amgad Hasan](https://github.com/AmgadHasan)
+2. [Israa Muhammad](https://github.com/israa2050)
+3. [Mariam Gamal](https://github.com/Mariam111)
+4. [Radwa Ayman](https://github.com/radwaayman22)
+5. [Rawan Nashaat](https://github.com/rawanelzehery)
 
 
 ## Acknowledgments

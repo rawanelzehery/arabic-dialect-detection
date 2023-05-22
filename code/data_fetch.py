@@ -14,10 +14,11 @@ import sqlite3
 
 # Define the URL of the file to download
 url = "https://github.com/AmgadHasan/arabic-dialect-detection/raw/main/data/dialects_database.db"
-
+CWD = os.getcwd()
+PWD = os.path.dirname(CWD)
 # Define the local file path
-folder_path = os.getcwd() + "/data/"
-db_file_path = folder_path + "dialects_database.db"
+data_folder_path = PWD + "/data/"
+db_file_path = data_folder_path + "dialects_database.db"
 # Check if the file exists
 if not os.path.isfile(db_file_path):
     # If the file doesn't exist, download it from the URL
@@ -41,7 +42,7 @@ conn.close()
 df.shape
 
 df = df.rename(columns={'text': 'tweet', 'dialect':'label'})
-csv_file_path = folder_path + "arabic_dialects.csv"
+csv_file_path = data_folder_path + "arabic_dialects.csv"
 
 df.to_csv(csv_file_path)
 

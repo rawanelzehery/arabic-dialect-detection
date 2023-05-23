@@ -19,8 +19,8 @@ CWD = os.getcwd()
 PWD = os.path.dirname(CWD)
 models_folder_path = PWD + "/models/"
 SVM_PATH = models_folder_path + 'svm_model.joblib'
-RNN_PATH = models_folder_path + 'bilstm2_model.joblib'
-model = joblib.load(RNN_PATH)
+#RNN_PATH = models_folder_path + 'bilstm2_model.joblib'
+model = joblib.load(SVM_PATH)
 # text=""
 @app.post('/predict')
 def predict(data : request_body):

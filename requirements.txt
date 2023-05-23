@@ -1,4 +1,4 @@
 re
-joblin
+joblib
 sklearn
 streamlit

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Arabic Country Prediction</title>
+</head>
+<body>
+    <h1>Arabic Country Prediction</h1>
+    {% if prediction %}
+        <p>The predicted country is: {{ prediction }}</p>
+    {% endif %}
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/predict">
+        <label for="input-text">Enter Arabic text:</label>
+        <br>
+        <textarea id="input-text" name="text" rows="4" cols="50"></textarea>
+        <br>
+        <button type="submit">Predict Country</button>
+    </form>
+</body>
+</html>

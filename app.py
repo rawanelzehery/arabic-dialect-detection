@@ -6,12 +6,12 @@ from preprocessing import TextPreprocessor
 text_preprocessor = TextPreprocessor()
 
 # Load the scikit-learn model from disk using joblib
-#model = joblib.load('models/svm_model.joblib')
+model = joblib.load('models/svm_model.joblib')
 
 #Define predictions dictionary
 counrty_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني" , "SD":"سوداني" ,"MA":"مغربي"}
-PAGE_ICON = ":wave:"
 
+PAGE_ICON = ":wave:"
 st.set_page_config(page_title="Dialect detector", page_icon=PAGE_ICON)
 
 # Create a text input field for the user to enter a string

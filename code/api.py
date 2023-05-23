@@ -1,44 +1,82 @@
-# import onnx as onnx
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 import uvicorn
 import os
 import pickle
 import joblib
 from pydantic import BaseModel
 from preprocessing import TextPreprocessor
-# Declaring our FastAPI instance
+from fastapi.templating import Jinja2Templates
 
+# Declaring our FastAPI instance
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 text_preprocessor = TextPreprocessor()
-counrty_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني" , "SD":"سوداني" ,"MA":"مغربي"}
+country_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني", "SD": "سوداني", "MA": "مغربي"}
 
-class request_body(BaseModel):
-    tweet1 : str
+class PredictionResult(BaseModel):
+    prediction: str
+
+class InputText(BaseModel):
+    text: str
+
 CWD = os.getcwd()
 PWD = os.path.dirname(CWD)
 models_folder_path = PWD + "/models/"
 SVM_PATH = models_folder_path + 'svm_model.joblib'
-#RNN_PATH = models_folder_path + 'bilstm2_model.joblib'
 model = joblib.load(SVM_PATH)
-# text=""
-@app.post('/predict')
-def predict(data : request_body):
-    test_data = [
-            data.tweet1
-    ]
-    trans_data = text_preprocessor.transform(test_data)
-    if trans_data[0] == "" or trans_data[0] == " ":
-        text = "من فضلك أدخل جملة عربية صحيحة"
+
+@app.get("/")
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.post("/predict")
+async def predict(input_text: InputText):
+    text = input_text.text.strip()
+    if not text:
+        return templates.TemplateResponse("index.html", {"request": request, "error": "Please enter validSure, here's an example of how you can modify the FastAPI server code to take input from the user through a user interface:
+
+```python
+from fastapi import FastAPI, Request
+import uvicorn
+import os
+import pickle
+import joblib
+from pydantic import BaseModel
+from preprocessing import TextPreprocessor
+from fastapi.templating import Jinja2Templates
+
+# Declaring our FastAPI instance
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+
+text_preprocessor = TextPreprocessor()
+country_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني", "SD": "سوداني", "MA": "مغربي"}
+
+class PredictionResult(BaseModel):
+    prediction: str
+
+class InputText(BaseModel):
+    text: str
+
+CWD = os.getcwd()
+PWD = os.path.dirname(CWD)
+models_folder_path = PWD + "/models/"
+SVM_PATH = models_folder_path + 'svm_model.joblib'
+model = joblib.load(SVM_PATH)
+
+@app.get("/")
+async def home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.post("/predict")
+async def predict(input_text: InputText):
+    text = input_text.text.strip()
+    if not text:
+        return templates.TemplateResponse("index.html", {"request": request, "error": "Please enter validArabic text."})
     else:
-        predict = model.predict(trans_data)
-        for i in counrty_dict:
-            if i == predict:
-                text = counrty_dict[i]
-    return { 'الاجابة هي :{}'.format(text)}
-
-
-
-
-
-
+        test_data = [text]
+        trans_data = text_preprocessor.transform(test_data)
+        prediction = model.predict(trans_data)
+        country = country_dict.get(prediction[0], "Unknown")
+        return templates.TemplateResponse("index.html", {"request": request, "prediction": country})

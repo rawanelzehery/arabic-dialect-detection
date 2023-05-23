@@ -1,5 +1,3 @@
-re
-os
 urllib
 pandas
 numpy
@@ -9,4 +7,4 @@ tensorflow
 fastapi
 uvicorn
 pydantic
-joblin
+joblib

@@ -1,12 +1,4 @@
 re
-os
-urllib
-pandas
-numpy
-sqlite3
-sklearn
-tensorflow
-fastapi
-uvicorn
-pydantic
 joblin
+sklearn
+streamlit

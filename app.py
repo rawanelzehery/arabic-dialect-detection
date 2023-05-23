@@ -6,7 +6,7 @@ from preprocessing import TextPreprocessor
 text_preprocessor = TextPreprocessor()
 
 # Load the scikit-learn model from disk using joblib
-model = joblib.load('models/svm_model.joblib')
+#model = joblib.load('models/svm_model.joblib')
 
 #Define predictions dictionary
 counrty_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني" , "SD":"سوداني" ,"MA":"مغربي"}

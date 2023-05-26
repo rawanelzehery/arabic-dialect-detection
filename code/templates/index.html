@@ -1,22 +1,102 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Arabic Country Prediction</title>
-</head>
-<body>
-    <h1>Arabic Country Prediction</h1>
-    {% if prediction %}
-        <p>The predicted country is: {{ prediction }}</p>
-    {% endif %}
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
+  <head>
+    <title>Arabic Dialect Prediction</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      /* Dark mode styles */
+      body.dark-mode {
+        background-color: #333;
+        color: #f2f2f2;
+      }
+
+      /* Form styles */
+      form {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Dark mode form styles */
+      body.dark-mode form {
+        border-color: #f2f2f2;
+        background-color: #333;
+        color: #f2f2f2;
+      }
+
+      /* Input styles */
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+      }
+
+      /* Dark modestyles */
+      body.dark-mode input[type="submit"] {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      /* Toggle button styles */
+      .toggle-button {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      /* Dark mode toggle button styles */
+      body.dark-mode .toggle-button {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      /* Textarea styles */
+      textarea {
+        width: 300px;
+        height: 100px;
+        resize: none;
+      }
+
+      /* Dark mode textarea styles */
+      body.dark-mode textarea {
+        background-color: #333;
+        color: #f2f2f2;
+      }
+
+      /* Error message styles */
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Arabic Dialect Prediction</h1>
+    <button id="mode-toggle" class="toggle-button" onclick="toggleDarkMode()">Dark mode</button>
     <form method="POST" action="/predict">
-        <label for="input-text">Enter Arabic text:</label>
-        <br>
-        <textarea id="input-text" name="text" rows="4" cols="50"></textarea>
-        <br>
-        <button type="submit">Predict Country</button>
+      <label for="input-text">Enter Arabic text:</label>
+      <textarea id="input-text" name="text"></textarea>
+      <input type="submit" value="Predict Dialect">
+      {% if prediction %}
+      <p>The predicted dialect is: {{ prediction }}</p>
+      {% endif %}
+      {% if error %}
+      <p class="error">{{ error }}</p>
+      {% endif %}
     </form>
-</body>
+  </body>
 </html>

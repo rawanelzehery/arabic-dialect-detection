@@ -6,9 +6,8 @@ import joblib
 from pydantic import BaseModel
 from preprocessing import TextPreprocessor
 from fastapi.templating import Jinja2Templates
-import numpy as np
 
-# Declaring our FastAPI instance
+#Declaring our FastAPI instance
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
@@ -17,7 +16,6 @@ country_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني", "SD": "�
 
 class PredictionResult(BaseModel):
     prediction: str
-    probabilities: dict
 
 class InputText(BaseModel):
     text: str
@@ -40,10 +38,6 @@ async def predict(request: Request, text: str = Form(...)):
     else:
         test_data = [text]
         trans_data = text_preprocessor.transform(test_data)
-        prediction_probabilities = model.predict_proba(trans_data)[0]
-        sorted_prob_indices = np.argsort(prediction_probabilities)[::-1]
-        sorted_probabilities = prediction_probabilities[sorted_prob_indices]
-        sorted_countries = [country_dict.get(model.classes_[i], "Unknown") for i in sorted_prob_indices]
-        prediction = sorted_countries[0]
-        probabilities = sorted_probabilities.tolist()
-        return templates.TemplateResponse("index.html", {"request": request, "prediction_result": PredictionResult(prediction=prediction, probabilities=probabilities)})
+        prediction = model.predict(trans_data)
+        country = country_dict.get(prediction[0], "Unknown")
+        return templates.TemplateResponse("index.html", {"request": request, "prediction": country})

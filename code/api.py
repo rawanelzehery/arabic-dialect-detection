@@ -17,7 +17,7 @@ country_dict = {"EG": "مصري", "LY": "ليبي", "LB": "لباني", "SD": "�
 
 class PredictionResult(BaseModel):
     prediction: str
-    probabilities: np.ndarray
+    probabilities: dict
 
 class InputText(BaseModel):
     text: str

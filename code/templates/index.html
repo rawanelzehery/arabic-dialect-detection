@@ -26,7 +26,7 @@
         align-items: center;
       }
 
-      /* Dark mode form styles */
+     /* Dark mode form styles */
       body.dark-mode form {
         border-color: #f2f2f2;
         background-color: #333;
@@ -78,8 +78,7 @@
         color:#f2f2f2;
       }
 
-      /* Error message styles */
-      .error {
+      /* Error messagestyles      .error {
         color: red;
       }
     </style>
@@ -91,24 +90,38 @@
       <label for="input-text">Enter Arabic text:</label>
       <textarea id="input-text" name="text"></textarea>
       <input type="submit" value="Predict Dialect">
-      {% if prediction %}
-      <p>The predicted dialect is: {{ prediction }}</p>
+      {% if prediction_result %}
+      <div>
+        <p>The predicted dialect is: {{ prediction_result.prediction }}</p>
+        <p>Probabilities:</p>
+        <ul>
+        {% for country, probability in zip(prediction_result.probabilities|slice(0,5), sorted_countries|slice(0,5)) %}
+          <li>{{ country }}: {{ probability }}</li>
+        {% endfor %}
+        </ul>
+      </div>
       {% endif %}
       {% if error %}
       <p class="error">{{ error }}</p>
       {% endif %}
     </form>
     <script>
-      function toggleDarkMode() {
-        const body = document.querySelector('body');
-        body.classList.toggle('dark-mode');
-        const toggleButton = document.querySelector('#mode-toggle');
-        if (toggleButton.textContent === "Dark mode") {
-          toggleButton.textContent = "Light mode";
-        } else {
-          toggleButton.textContent = "Dark mode";
-        }
+    function toggleDarkMode() {
+      const body = document.querySelector('body');
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('dark-mode', 'false');
+      } else {
+        body.classList.add('dark-mode');
+        localStorage.setItem('dark-mode', 'true');
       }
+      const toggleButton = document.querySelector('#mode-toggle');
+      if (toggleButton.textContent === "Dark mode") {
+        toggleButton.textContent = "Light mode";
+      } else {
+        toggleButton.textContent = "Dark mode";
+      }
+    }
     </script>
   </body>
 </html>

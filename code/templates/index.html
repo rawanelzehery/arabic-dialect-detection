@@ -26,7 +26,7 @@
         align-items: center;
       }
 
-     /* Dark mode form styles */
+      /* Dark mode form styles */
       body.dark-mode form {
         border-color: #f2f2f2;
         background-color: #333;
@@ -78,7 +78,8 @@
         color:#f2f2f2;
       }
 
-      /* Error messagestyles      .error {
+      /* Error message styles */
+      .error {
         color: red;
       }
     </style>
@@ -90,16 +91,8 @@
       <label for="input-text">Enter Arabic text:</label>
       <textarea id="input-text" name="text"></textarea>
       <input type="submit" value="Predict Dialect">
-      {% if prediction_result %}
-      <div>
-        <p>The predicted dialect is: {{ prediction_result.prediction }}</p>
-        <p>Probabilities:</p>
-        <ul>
-        {% for country, probability in zip(prediction_result.probabilities|slice(0,5), sorted_countries|slice(0,5)) %}
-          <li>{{ country }}: {{ probability }}</li>
-        {% endfor %}
-        </ul>
-      </div>
+      {% if prediction %}
+      <p>The predicted dialect is: {{ prediction }}</p>
       {% endif %}
       {% if error %}
       <p class="error">{{ error }}</p>
